@@ -11,38 +11,57 @@ const port = 8000;
 app.use(bodyParser.json());
 app.use(cors());
 
-// app.post("/",  (req, res) => {
-//    data.push(req.body);
-//    res.send("zas");
-// })
 
-app.get("/", async (req, res) => {
-  const tableQueryText = `
-    CREATE TABLE IF NOT EXISTS "users" (
-      name VARCHAR(255) NOT NULL,
-      email VARCHAR(255) UNIQUE
+// app.get("/install", async (req, res) => {
+    
+//   const TableQueryText = `
+//     CREATE TABLE IF NOT EXISTS users (
     
 
+//     )`;
+//   try {
+//     await db.query(TableQueryText);
+//   } catch (error) {
+//     console.error(error);
+//   }
+//   res.send("Table Created");
+// });
+
+
+app.get("/user", async (req, res) => {
+    
+  const TableQueryText = `CREATE TABLE "user"(
+      id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+      email VARCHAR(50) UNIQUE NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      password TEXT,
+      avatar_img TEXT,
+      createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      currency_type currency_type DEFAULT 'USD' NOT NULL
     )`;
   try {
-    await db.query(tableQueryText);
+    await db.query(TableQueryText);
   } catch (error) {
     console.error(error);
   }
-  res.send("Table Created");
+  res.send("FIGMA p SAME");
 });
 
-app.get("/createUser", async (req, res) => {
-  const QueryText = `
-    INSERT INTO users (name, email)
-    VALUES ('tsebe', '24LP8296@nest.edu.mn');
-    `;
+
+app.post("/user/create", async (req, res) => {
+  const { email, name, password, currency_type} = req.body;
+  const QueryText = `INSERT INTO "user"(email, name, password, avatar_image currency_type)
+  VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+  
   try {
-    await db.query(QueryText);
+   const result = await db.query(QueryText, [email, name, password, avatar_image, currency_type]);
+   res.status(201).json(result.rows[0])
   } catch (error) {
     console.error(error);
+    res.status(500).json(result.rows[0]);
   }
-  res.send("User Inserted");
+  res.send("FIGMA 4 SAME");
 });
 
 // app.get("/getUser", async (req, res) => {
