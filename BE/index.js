@@ -1,26 +1,38 @@
 import bodyParser from "body-parser";
 import express from "express";
-import fs from "node:fs";
 import cors from "cors";
 import { db } from "./db.js";
-import { isError } from "node:util";
 import { user } from "./src/router/user.js";
 import { record } from "./src/router/record.js";
 import {category} from "./src/router/category.js"
-
+import { auth } from "./src/router/auth.js";
 
 
 const app = express();
-
 const port = 8000;
 
+app.use(express());
 app.use(bodyParser.json());
-
 app.use(cors());
 app.use("/user",user );
 app.use("/record", record);
 app.use("/category", category);
+app.use("/api", auth);
 
+
+
+app.get("/installExtension", async (req, res) => {
+  const TableQueryText = `CREATE TABLE IF NOT EXISTS "user" `;
+
+  try {
+    db.query(TableQueryText);
+
+    res.send("success");
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+});
 
 app.get("/user", async (req, res) => {
   const TableQueryText = `CREATE TABLE "user" (

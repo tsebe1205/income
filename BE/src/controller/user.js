@@ -1,35 +1,37 @@
 import { db } from "../../db.js";
+import bcrypt from "bcrypt";
 
-export const createUser =async (req, res) => {
-    const { email, name, password, avatar_img, currency_type } = req.body;
-    const QueryText = `
-    INSERT INTO  "user" ( email, name, password, avatar_img, currency_type)
-    VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-  
-    try {
-      const result = await db.query(QueryText, [
-        email,
-        name,
-        password,
-        avatar_img,
-        currency_type,
-      ]);
-    } catch (error) {
-      console.error(error);
-    }
-    res.send("FIGMA 5 SAME");
-  }
 
 export const getUser = async (req, res) => {
-    const QueryText = "SELECT * FROM user";
-    try {
-      const result = await db.query(QueryText);
-      res.status(201).json(result.rows[0]);
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: "Database error" });
-    }
-  };
+  const QueryText = "SELECT * FROM user";
+  try {
+    const result = await db.query(QueryText);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Database error" });
+  }
+};
+
+export const createUser =async (req, res) => {
+  const { email, name, password, avatar_img, currency_type } = req.body;
+  const QueryText = `
+  INSERT INTO  "user" ( email, name, password, avatar_img, currency_type)
+  VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+
+  try {
+    const result = await db.query(QueryText, [
+      email,
+      name,
+      password,
+      avatar_img,
+      currency_type,
+    ]);
+  } catch (error) {
+    console.error(error);
+  }
+  res.send("FIGMA 5 SAME");
+}
 
  export const deleteUser = async (req, res) => {
     const { id } = req.params;
@@ -41,6 +43,7 @@ export const getUser = async (req, res) => {
   
     } catch (error) {
       console.error(error);
+      res.send(error)
     }
     res.status(500).json({ error: "Database error" });
   };
