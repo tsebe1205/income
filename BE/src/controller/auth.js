@@ -22,6 +22,7 @@ export const signIn = async (req, res) => {
         res.send({ error: "Invalid email or password" });
       }
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Database error" });

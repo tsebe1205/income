@@ -47,7 +47,7 @@ const Piee=()=> {
     <div className="max-w-[1200px] h-full flex mx-auto py-4 justify-between">
       <div className=" flex flex-col max-w-[588px] max-h-[284px] w-full h-full rounded-2xl bg-white mt-5">
         <p className="px-6 py-4">income - Expense</p>
-        {/* <Card className=" px-6 py-8 border-t-2">
+        <Card className=" px-6 py-8 border-t-2">
         <CardHeader className="items-center pb-0"></CardHeader>
         <CardContent className="flex-1 pb-0">
           <ChartContainer
@@ -68,7 +68,7 @@ const Piee=()=> {
             </PieChart>
           </ChartContainer>
         </CardContent>
-      </Card> */}
+      </Card>
       </div>
      
     </div>

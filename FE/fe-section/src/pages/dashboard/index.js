@@ -1,20 +1,50 @@
-import Cardssum from "../../components/mycomponents/Cardssum";
-import Layout from "../../components/mycomponents/Layout";
-import Chart from "../../components/mycomponents/Chart";
-import { Pie } from "recharts";
-import Last from "../../components/mycomponents/Last";
-import Piee from "../../components/mycomponents/Pie";
+import { ChartContainer } from "@/components/ui/chart";
+import { useEffect, useState } from "react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import axios from "axios";
+const Dashboard = () => {
+    const [chartData, setChartData] = useState([]);
+    const fetchData =  async () => {
+        const res = await axios.post('http://localhost:8000/record/barchart');
+        setChartData(res.data);
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
 
-const Dash = () => {
+
+  const chartConfig = {
+    income: {
+      label: "Desktop",
+      color: "#2563eb",
+    },
+    expense: {
+      label: "Mobile",
+      color: "#60a5fa",
+    },
+  };
+
   return (
-    <div className="bg-[#F3F4F6]">
-      <Layout />
-      <Cardssum />
-      <Chart />
-      <Piee/>
-      <Last/>
+    <div>
+      <ChartContainer config={chartConfig} className="h-[200px] w-full">
+        <BarChart accessibilityLayer data={chartData}>
+          <CartesianGrid vertical={false} />
+          <YAxis
+
+          />
+          <XAxis
+            dataKey="month"
+            tickLine={false}
+            tickMargin={10}
+            axisLine={false}
+            tickFormatter={(value) => value.slice(0, 3)}
+          />
+          <Bar dataKey="income" fill="var(--color-income)" radius={4} />
+          <Bar dataKey="expense" fill="var(--color-expense)" radius={4} />
+        </BarChart>
+      </ChartContainer>
     </div>
   );
 };
 
-export default Dash;
+export default Dashboard;

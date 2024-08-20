@@ -1,29 +1,34 @@
-import { Bar, BarChart, XAxis,CartesianGrid, YAxis, Pie } from "recharts";
+import { Bar, BarChart, XAxis,CartesianGrid, YAxis } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
-import Piee from "./Pie";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
-const chartData = [
-  { month: "January", income: 186, expense: 80 },
-  { month: "February", income: 305, expense: 200 },
-  { month: "March", income: 237, expense: 120 },
-  { month: "April", income: 73, expense: 190 },
-  { month: "May", income: 209, expense: 130 },
-  { month: "June", income: 214, expense: 140 },
-];
+const Chart = () => {
+
+    const [chartData, setChartData] = useState([]);
+    const fetchData =  async () => {
+        const res = await axios.get('http://localhost:8000/record/barChart');
+        setChartData(res.data);
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+
 
 const chartConfig = {
   income: {
     label: "income",
     color: "#84CC16",
   },
-  expence: {
+  expense: {
     label: "Expenses",
     color: "#F97316",
   },
 };
 
-const Chart = () => {
+
   return (
     <div className="max-w-[1200px] h-full flex mx-auto py-4 justify-between">
       <div className=" flex flex-col max-w-[588px] max-h-[284px] w-full h-full rounded-2xl bg-white mt-5">
