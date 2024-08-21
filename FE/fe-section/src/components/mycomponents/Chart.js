@@ -8,7 +8,7 @@ const Chart = () => {
 
     const [chartData, setChartData] = useState([]);
     const fetchData =  async () => {
-        const res = await axios.get('http://localhost:8000/record/barChart');
+        const res = await axios.post('http://localhost:8000/record/barChart');
         setChartData(res.data);
     }
     useEffect(() => {
@@ -30,7 +30,7 @@ const chartConfig = {
 
 
   return (
-    <div className="max-w-[1200px] h-full flex mx-auto py-4 justify-between">
+    
       <div className=" flex flex-col max-w-[588px] max-h-[284px] w-full h-full rounded-2xl bg-white mt-5">
         <p className="px-6 py-4">income - Expense</p>
         <ChartContainer
@@ -53,7 +53,7 @@ const chartConfig = {
         </ChartContainer>
       </div>
      
-    </div>
+   
   );
 };
 export default Chart;

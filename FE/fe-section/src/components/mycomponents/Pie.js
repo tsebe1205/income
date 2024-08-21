@@ -8,7 +8,10 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} 
+
+from "@/components/ui/chart"
+import Piedata from "./Piedata"
 const chartData = [
   { browser: "Insurance", visitors: 275, fill: "#16BDCA" },
   { browser: "Bills", visitors: 200, fill: "#1C64F2" },
@@ -44,15 +47,16 @@ const chartConfig = {
 
 const Piee=()=> {
   return (
-    <div className="max-w-[1200px] h-full flex mx-auto py-4 justify-between">
+   
       <div className=" flex flex-col max-w-[588px] max-h-[284px] w-full h-full rounded-2xl bg-white mt-5">
-        <p className="px-6 py-4">income - Expense</p>
-        <Card className=" px-6 py-8 border-t-2">
-        <CardHeader className="items-center pb-0"></CardHeader>
-        <CardContent className="flex-1 pb-0">
+      <div className="flex justify-between items-center">  <p className="px-6 py-4">income - Expense</p>
+      <p  className="px-6 py-4">Ognoo</p></div>
+        <Card>
+    
+        <CardContent className="flex pb-0">
           <ChartContainer
             config={chartConfig}
-            className="mx-auto aspect-square h-[200px]"
+            className="aspect-square h-[228px]"
           >
             <PieChart>
               <ChartTooltip
@@ -63,15 +67,16 @@ const Piee=()=> {
                 data={chartData}
                 dataKey="visitors"
                 nameKey="browser"
-                innerRadius={40}
+                innerRadius={50}
               />
             </PieChart>
           </ChartContainer>
+          <Piedata/>
         </CardContent>
       </Card>
       </div>
      
-    </div>
+   
 );
 }; export default Piee
 

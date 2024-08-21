@@ -10,10 +10,10 @@ const Cardsecond = () => {
         <p>Your Income</p>
       </div>
       <div className=" flex flex-col px-6 pt-5 pb-6 border-t-2">
-        <div className="flex font-semibold text-4xl leading-10"><p>1,200,000</p><p>T</p></div>
+        <div className="flex font-semibold text-4xl leading-10"><p> T</p></div>
         <p className="text-lg leading-7">Your Income Amount</p>
         <div className=" flex items-center gap-2">
-          <div className=" bg-[#84CC16] w-6 h-6 rounded-full" ></div>
+          <div className=" bg-[#84CC16] w-4 h-4 rounded-full" ></div>
           <p>32% from last month</p>
         </div>
       </div>
@@ -22,5 +22,5 @@ const Cardsecond = () => {
   );
 };
 export default Cardsecond;
-// border-t-indigo-500
+
 
